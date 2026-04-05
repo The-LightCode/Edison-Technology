@@ -461,7 +461,7 @@ async function submitForm() {
   };
 
   try {
-    const response = await fetch('https://edison-technology-website-backend.onrender.com', {
+    const response = await fetch('https://edison-technology-website-backend.onrender.com/send-booking', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
