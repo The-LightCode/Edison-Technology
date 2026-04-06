@@ -305,40 +305,72 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 1.
   <p class="section-sub">Fill in the form and receive a detailed quote within 24 hours. All online bookings include a 3% discount — automatically applied.</p>
   <div class="booking-grid">
     <div>
-      <div class="booking-form" id="bookingForm">
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" id="fname" placeholder="John"/></div>
-          <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" id="lname" placeholder="Doe"/></div>
-        </div>
-        <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" id="email" placeholder="john@company.com"/></div>
-        <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" id="phone" placeholder="+234 xxx xxx xxxx"/></div>
-        <div class="form-group"><label class="form-label">Service Required</label>
-          <select class="form-select" id="service" onchange="updatePrice()">
-            <option value="">— Select a service —</option>
-            <option value="web" data-price="350000">Website Development</option>
-            <option value="software" data-price="600000">Software Development</option>
-            <option value="design" data-price="150000">Graphics Design</option>
-            <option value="video" data-price="200000">Video Editing</option>
-            <option value="aiml" data-price="800000">AI & ML Development</option>
-            <option value="analytics" data-price="500000">Data Analytics</option>
-          </select>
-        </div>
-        <div class="form-group"><label class="form-label">Project Budget (₦)</label><input type="number" class="form-input" id="budget" placeholder="500000" oninput="updatePrice()"/></div>
-        <div class="form-group"><label class="form-label">Project Brief</label><textarea class="form-textarea" id="brief" placeholder="Describe your project, goals, and timeline..."></textarea></div>
-        <div class="price-preview" id="pricePreview" style="display:none">
-          <div class="price-row"><span class="price-key">Quoted Amount</span><span class="price-val" id="pBase">₦0</span></div>
-          <div class="price-row"><span class="price-key">Online Booking Discount (3%)</span><span class="price-val price-discount" id="pDiscount">- ₦0</span></div>
-          <div class="price-divider"></div>
-          <div class="price-total-row"><span class="price-total-key">Total Payable</span><span class="price-total-val" id="pTotal">₦0</span></div>
-        </div>
-        <button class="btn-submit" onclick="submitForm()">Submit Booking Request ◆</button>
+  <!-- Replace YOUR_FORM_ID with the code from your Formspree dashboard -->
+  <form action="https://https://formspree.io/f/xeepnjkz" method="POST" id="formspree-form" class="booking-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">First Name</label>
+        <input type="text" name="firstName" class="form-input" id="fname" placeholder="John" required/>
       </div>
-      <div class="success-msg" id="successMsg">
-        <div class="success-icon">✅</div>
-        <div class="success-title">Booking Received!</div>
-        <p class="success-sub">Thank you for choosing Edison Technology. We'll review your brief and respond within 24 hours with a detailed proposal — including your 3% online discount.</p>
+      <div class="form-group">
+        <label class="form-label">Last Name</label>
+        <input type="text" name="lastName" class="form-input" id="lname" placeholder="Doe" required/>
       </div>
     </div>
+    
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" name="email" class="form-input" id="email" placeholder="john@company.com" required/>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Phone Number</label>
+      <input type="tel" name="phone" class="form-input" id="phone" placeholder="+234 xxx xxx xxxx"/>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Service Required</label>
+      <select name="service" class="form-select" id="service" onchange="updatePrice()" required>
+        <option value="">— Select a service —</option>
+        <option value="Website Development" data-price="350000">Website Development</option>
+        <option value="Software Development" data-price="600000">Software Development</option>
+        <option value="Graphics Design" data-price="150000">Graphics Design</option>
+        <option value="Video Editing" data-price="200000">Video Editing</option>
+        <option value="AI & ML Development" data-price="800000">AI & ML Development</option>
+        <option value="Data Analytics" data-price="500000">Data Analytics</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Project Budget (₦)</label>
+      <input type="number" name="budget" class="form-input" id="budget" placeholder="500000" oninput="updatePrice()"/>
+    </div>
+
+    <!-- Hidden input to capture the calculated total price for the email -->
+    <input type="hidden" name="total_price" id="hiddenTotal">
+
+    <div class="form-group">
+      <label class="form-label">Project Brief</label>
+      <textarea name="message" class="form-textarea" id="brief" placeholder="Describe your project..."></textarea>
+    </div>
+
+    <div class="price-preview" id="pricePreview" style="display:none">
+      <div class="price-row"><span class="price-key">Quoted Amount</span><span class="price-val" id="pBase">₦0</span></div>
+      <div class="price-row"><span class="price-key">Online Booking Discount (3%)</span><span class="price-val price-discount" id="pDiscount">- ₦0</span></div>
+      <div class="price-divider"></div>
+      <div class="price-total-row"><span class="price-total-key">Total Payable</span><span class="price-total-val" id="pTotal">₦0</span></div>
+    </div>
+
+    <button type="submit" class="btn-submit">Submit Booking Request ◆</button>
+  </form>
+
+  <div class="success-msg" id="successMsg" style="display:none">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Booking Received!</div>
+    <p class="success-sub">Thank you for choosing Edison Technology. Check your email for confirmation.</p>
+  </div>
+</div>
+
     <div class="booking-info">
       <div class="info-card"><div class="info-card-title">⚡ Why Book Online?</div><p>Booking through our website gives you an automatic 3% discount — no promo codes, no negotiations. Applied directly to your final invoice.</p></div>
       <div class="info-card"><div class="info-card-title">🕐 What Happens Next?</div><p>You'll get a confirmation email immediately. Our team reviews your brief within 24 hours and sends a detailed proposal and discounted quote.</p></div>
@@ -447,36 +479,60 @@ function updatePrice(){
   let base=0;
   if(bi.value&&parseFloat(bi.value)>0)base=parseFloat(bi.value);
   else if(opt&&opt.dataset.price)base=parseFloat(opt.dataset.price);
-  if(base>0){pv.style.display='block';const d=base*.03,t=base-d;document.getElementById('pBase').textContent='₦'+base.toLocaleString();document.getElementById('pDiscount').textContent='- ₦'+Math.round(d).toLocaleString();document.getElementById('pTotal').textContent='₦'+Math.round(t).toLocaleString()}else pv.style.display='none';
-}
-async function submitForm() {
-  const data = {
-    firstName: document.getElementById('fname').value,
-    lastName: document.getElementById('lname').value,
-    email: document.getElementById('email').value,
-    phone: document.getElementById('phone').value,
-    service: document.getElementById('service').value,
-    total: document.getElementById('pTotal').innerText,
-    brief: document.getElementById('brief').value
-  };
-
-  try {
-    const response = await fetch('https://edison-technology-website-backend.onrender.com/send-booking', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    const result = await response.json();
-    if (result.success) {
-      alert("Booking sent! Check your email.");
-    } else {
-      alert("Error: " + result.message);
-    }
-  } catch (err) {
-    alert("Could not connect to the backend server.");
+  
+  if(base>0){
+    pv.style.display='block';
+    const d=base*.03,t=base-d;
+    document.getElementById('pBase').textContent='₦'+base.toLocaleString();
+    document.getElementById('pDiscount').textContent='- ₦'+Math.round(d).toLocaleString();
+    
+    const finalTotal = '₦'+Math.round(t).toLocaleString();
+    document.getElementById('pTotal').textContent = finalTotal;
+    
+    // THIS IS THE NEW LINE: It saves the price so Formspree can "see" it
+    document.getElementById('hiddenTotal').value = finalTotal; 
+    
+  } else {
+    pv.style.display='none';
   }
 }
+var form = document.getElementById("formspree-form");
+
+async function handleSubmit(event) {
+  event.preventDefault(); // Stop the page from redirecting
+  var status = document.getElementById("successMsg");
+  var data = new FormData(event.target);
+
+  fetch(event.target.action, {
+    method: form.method,
+    body: data,
+    headers: {
+        'Accept': 'application/json'
+    }
+  }).then(response => {
+    if (response.ok) {
+      // Hide the form and show your success message
+      form.style.display = "none";
+      status.style.display = "block";
+      status.classList.add('show');
+      form.reset();
+    } else {
+      response.json().then(data => {
+        if (Object.hasOwn(data, 'errors')) {
+          alert(data["errors"].map(error => error["message"]).join(", "));
+        } else {
+          alert("Oops! There was a problem submitting your form");
+        }
+      })
+    }
+  }).catch(error => {
+    alert("Oops! There was a problem submitting your form");
+  });
+}
+
+form.addEventListener("submit", handleSubmit);
+
+
 const obs=new IntersectionObserver((en)=>{en.forEach((e,i)=>{if(e.isIntersecting){e.target.style.opacity='0';e.target.style.transform='translateY(22px)';setTimeout(()=>{e.target.style.transition='opacity .5s ease,transform .5s ease';e.target.style.opacity='1';e.target.style.transform='translateY(0)'},(i%6)*65);obs.unobserve(e.target)}})},{threshold:.08});
 document.querySelectorAll('.service-card,.portfolio-card,.team-card,.info-card').forEach(el=>{el.style.opacity='0';obs.observe(el)});
 const secs=document.querySelectorAll('section[id]');
